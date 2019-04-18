@@ -109,6 +109,7 @@ function update() {
   var downP = false;
    if(document.getElementById("result").innerHTML.indexOf("left") > 0){
      leftP = true;
+
    }
    if(document.getElementById("result").innerHTML.indexOf("right") > 0){
      rightP = true;
@@ -120,9 +121,9 @@ function update() {
      downP = true;
    }
    console.log(upP, rightP, downP, leftP);
-  if (leftP || rightP  || upP || downP) {
-    this.socket.emit('playerInput', { left: leftP, right: rightP, up: upP, down: downP});
-  }
+   if (leftP || rightP  || upP || downP) {
+     this.socket.emit('playerInput', { left: leftP , right: rightP, up: upP, down:downP });
+   }
 }
 
 function displayPlayers(self, playerInfo, sprite) {
