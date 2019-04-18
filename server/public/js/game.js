@@ -120,6 +120,9 @@ function update() {
      downP = true;
    }
    console.log(upP, rightP, downP, leftP);
+  if (leftP || rightP  || upP || downP) {
+    this.socket.emit('playerInput', { left: leftP, right: rightP, up: upP, down: downP});
+  }
 }
 
 function displayPlayers(self, playerInfo, sprite) {
