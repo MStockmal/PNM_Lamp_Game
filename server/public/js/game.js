@@ -14,7 +14,7 @@ var game = new Phaser.Game(config);
 
 function preload() {
   this.load.image('lamp', 'assets/PNM_Lamp.png');
-  this.load.image('otherPlayer', 'assets/enemyBlack5.png');
+  this.load.image('otherPlayer', 'assets/PNM_Lamp.png');
   this.load.image('star', 'assets/PNM_Star.png');
   this.load.image('sky', 'assets/PNM_Background.jpg');
 }

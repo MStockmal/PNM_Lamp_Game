@@ -45,7 +45,7 @@ function create() {
     } else {
       self.scores.blue += 10;
     }
-    self.star.setPosition(randomPosition(1280), randomPosition(800));
+    self.star.setPosition(randomPosition(1200), randomPosition(700));
     io.emit('updateScore', self.scores);
     io.emit('starLocation', { x: self.star.x, y: self.star.y });
   });
