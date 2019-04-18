@@ -80,6 +80,13 @@ function create() {
   this.upKeyPressed = false;
 }
 
+var leftP = false;
+var rightP = false;
+var upP = false;
+var downP = false;
+var color = "";
+var name = "";
+
 function update() {
   const left = this.leftKeyPressed;
   const right = this.rightKeyPressed;
@@ -120,10 +127,11 @@ function update() {
    if(document.getElementById("result").innerHTML.indexOf("down") > 0){
      downP = true;
    }
-   console.log(upP, rightP, downP, leftP);
-   if (leftP || rightP  || upP || downP) {
-     this.socket.emit('playerInput', { left: leftP , right: rightP, up: upP, down:downP });
-   }
+
+ console.log(upP, rightP, downP, leftP, color, name);
+  if (leftP || rightP  || upP || downP) {
+    this.socket.emit('playerInput', { left: leftP, right: rightP, up: upP, down: downP, color: color, name: name});
+  }
 }
 
 function displayPlayers(self, playerInfo, sprite) {

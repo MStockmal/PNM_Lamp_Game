@@ -25,9 +25,17 @@
 			<span id="result"></span>
 		</div> 
         <div id="container"></div>
+        <input id='color' type="color" onchange='colorChange()'>
+        <input id='name' type="text" onchange='colorChange()'>
+
+
 
     </body>
     <script>
+function colorChange(){
+  color = document.getElementById("color").value;
+  name = document.getElementById("name").value;
+}
 			console.log("touchscreen is", VirtualJoystick.touchScreenAvailable() ? "available" : "not available");
 
 			var joystick	= new VirtualJoystick({
@@ -46,8 +54,10 @@
 			//	console.log('up')
 			})
 
+
 			setInterval(function(){
-				var outputEl	= document.getElementById('result');
+				/*
+        var outputEl	= document.getElementById('result');
 				outputEl.innerHTML	= '<b>Result:</b> '
 					+ ' dx:'+joystick.deltaX()
 					+ ' dy:'+joystick.deltaY()
@@ -55,7 +65,13 @@
 					+ (joystick.up()	? ' up'		: '')
 					+ (joystick.left()	? ' left'	: '')
 					+ (joystick.down()	? ' down' 	: '')
-			}, 1/30 * 1000);
+          */
+     leftP = joystick.left();
+     rightP = joystick.right();
+     upP = joystick.up();
+     downP = joystick.down();
+      
+      }, 1/30 * 1000);
 
 		</script>
 </html>
