@@ -103,6 +103,23 @@ function update() {
   if (left !== this.leftKeyPressed || right !== this.rightKeyPressed || up !== this.upKeyPressed) {
     this.socket.emit('playerInput', { left: this.leftKeyPressed , right: this.rightKeyPressed, up: this.upKeyPressed });
   }
+  var leftP = false;
+  var rightP = false;
+  var upP = false;
+  var downP = false;
+   if(document.getElementById("result").innerHTML.indexOf("left") > 0){
+     leftP = true;
+   }
+   if(document.getElementById("result").innerHTML.indexOf("right") > 0){
+     rightP = true;
+   }
+   if(document.getElementById("result").innerHTML.indexOf("up") > 0){
+     upP = true;
+   }
+   if(document.getElementById("result").innerHTML.indexOf("down") > 0){
+     downP = true;
+   }
+   console.log(upP, rightP, downP, leftP);
 }
 
 function displayPlayers(self, playerInfo, sprite) {
