@@ -11,6 +11,13 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
+var leftP = false;
+var rightP = false;
+var upP = false;
+var downP = false;
+var color = "";
+var name = "";
+
 
 function preload() {
   this.load.image('lamp', 'assets/PNM_Lamp.png');
@@ -80,12 +87,6 @@ function create() {
   this.upKeyPressed = false;
 }
 
-var leftP = false;
-var rightP = false;
-var upP = false;
-var downP = false;
-var color = "";
-var name = "";
 
 function update() {
   const left = this.leftKeyPressed;
@@ -110,23 +111,28 @@ function update() {
   if (left !== this.leftKeyPressed || right !== this.rightKeyPressed || up !== this.upKeyPressed) {
     this.socket.emit('playerInput', { left: this.leftKeyPressed , right: this.rightKeyPressed, up: this.upKeyPressed });
   }
-  var leftP = false;
-  var rightP = false;
-  var upP = false;
-  var downP = false;
-   if(document.getElementById("result").innerHTML.indexOf("left") > 0){
-     leftP = true;
+  // var leftP = false;
+  // var rightP = false;
+  // var upP = false;
+  // var downP = false;
+   // if(document.getElementById("result").innerHTML.indexOf("left") > 0){
+   //   leftP = true;
+   //
+   // }
+   // if(document.getElementById("result").innerHTML.indexOf("right") > 0){
+   //   rightP = true;
+   // }
+   // if(document.getElementById("result").innerHTML.indexOf("up") > 0){
+   //   upP = true;
+   // }
+   // if(document.getElementById("result").innerHTML.indexOf("down") > 0){
+   //   downP = true;
+   // }
+   // if(document.getElementById("color").innerHTML.indexOf("down") > 0){
+   //   downP = true;
+   // }
 
-   }
-   if(document.getElementById("result").innerHTML.indexOf("right") > 0){
-     rightP = true;
-   }
-   if(document.getElementById("result").innerHTML.indexOf("up") > 0){
-     upP = true;
-   }
-   if(document.getElementById("result").innerHTML.indexOf("down") > 0){
-     downP = true;
-   }
+
 
  console.log(upP, rightP, downP, leftP, color, name);
   if (leftP || rightP  || upP || downP) {
@@ -135,9 +141,10 @@ function update() {
 }
 
 function displayPlayers(self, playerInfo, sprite) {
+  console.log(color);
   const player = self.add.sprite(playerInfo.x, playerInfo.y, sprite).setOrigin(0.5, 0.5).setDisplaySize(83, 70);
-  if (playerInfo.team === 'blue') player.setTint(0x05fcfc);
-  else player.setTint(0xff26a1);
+  if (playerInfo.team === 'blue') player.setTint('0x'+ color);
+  else player.setTint('0x'+ color);
   player.playerId = playerInfo.playerId;
   self.players.add(player);
 }

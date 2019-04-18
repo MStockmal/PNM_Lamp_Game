@@ -96,6 +96,9 @@ function create() {
 function update() {
   this.players.getChildren().forEach((player) => {
     const input = players[player.playerId].input;
+    //Set Player Tint
+    console.alert(input.color);
+    player.setTint('Ox' + input.color);
     if (input.left) {
       player.setAngularVelocity(-300);
     } else if (input.right) {

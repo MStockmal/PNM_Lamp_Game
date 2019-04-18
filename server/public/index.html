@@ -1,77 +1,78 @@
 <!DOCTYPE html>
 <html>
 
-    <head>
-        <meta charset="utf-8">
-    </head>
-    <style>
-    #container{
-      width: 100%;
-    }
-    body{
-    min-width: 100vw;
-    position: absolute;
-    margin: 0;
-    }
-    </style>
-
-
-    <body>
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/phaser@3.15.1/dist/phaser.min.js"></script>
-        <script src="js/game.js"></script>
-        <script src="js/virtualjoystick.js"></script>
-		<div id="info">
-			<span id="result"></span>
-		</div> 
-        <div id="container"></div>
-        <input id='color' type="color" onchange='colorChange()'>
-        <input id='name' type="text" onchange='colorChange()'>
-
-
-
-    </body>
-    <script>
-function colorChange(){
-  color = document.getElementById("color").value;
-  name = document.getElementById("name").value;
+<head>
+  <meta charset="utf-8">
+</head>
+<style>
+#container{
+  width: 100%;
 }
-			console.log("touchscreen is", VirtualJoystick.touchScreenAvailable() ? "available" : "not available");
-
-			var joystick	= new VirtualJoystick({
-				container	: document.getElementById('container'),
-                   mouseSupport: true,
-		      stationaryBase: true,
-                      baseX: window.innerWidth/2 +150,
-                      baseY: window.innerHeight - 200,
-		      limitStickTravel: true,
-		      stickRadius: 100
-			});
-			joystick.addEventListener('touchStart', function(){
-			//	console.log('down')
-			})
-			joystick.addEventListener('touchEnd', function(){
-			//	console.log('up')
-			})
+body{
+  min-width: 100vw;
+  position: absolute;
+  margin: 0;
+}
+</style>
 
 
-			setInterval(function(){
-				/*
-        var outputEl	= document.getElementById('result');
-				outputEl.innerHTML	= '<b>Result:</b> '
-					+ ' dx:'+joystick.deltaX()
-					+ ' dy:'+joystick.deltaY()
-					+ (joystick.right()	? ' right'	: '')
-					+ (joystick.up()	? ' up'		: '')
-					+ (joystick.left()	? ' left'	: '')
-					+ (joystick.down()	? ' down' 	: '')
-          */
-     leftP = joystick.left();
-     rightP = joystick.right();
-     upP = joystick.up();
-     downP = joystick.down();
-      
-      }, 1/30 * 1000);
+<body>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/phaser@3.15.1/dist/phaser.min.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/virtualjoystick.js"></script>
+  <div id="info">
+    <span id="result"></span>
+  </div>
+  <div id="container"></div>
+  <input id='color' type="color" onchange='colorChange()'>
+  <input id='name' type="text" onchange='colorChange()'>
 
-		</script>
+
+
+</body>
+<script>
+function colorChange(){
+  color = document.getElementById("color").value.slice(1);
+  name = document.getElementById("name").value;
+
+}
+console.log("touchscreen is", VirtualJoystick.touchScreenAvailable() ? "available" : "not available");
+
+var joystick	= new VirtualJoystick({
+  container	: document.getElementById('container'),
+  mouseSupport: true,
+  stationaryBase: true,
+  baseX: window.innerWidth/2 +150,
+  baseY: window.innerHeight - 200,
+  limitStickTravel: true,
+  stickRadius: 100
+});
+joystick.addEventListener('touchStart', function(){
+  //	console.log('down')
+})
+joystick.addEventListener('touchEnd', function(){
+  //	console.log('up')
+})
+
+
+setInterval(function(){
+
+  // var outputEl	= document.getElementById('result');
+  // outputEl.innerHTML	= '<b>Result:</b> '
+  // 	+ ' dx:'+joystick.deltaX()
+  // 	+ ' dy:'+joystick.deltaY()
+  // 	+ (joystick.right()	? ' right'	: '')
+  // 	+ (joystick.up()	? ' up'		: '')
+  // 	+ (joystick.left()	? ' left'	: '')
+  // 	+ (joystick.down()	? ' down' 	: '')
+
+  leftP = joystick.left();
+  rightP = joystick.right();
+  upP = joystick.up();
+  downP = joystick.down();
+
+}, 1/30 * 1000);
+
+</script>
 </html>
