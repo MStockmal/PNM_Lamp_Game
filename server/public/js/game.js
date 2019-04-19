@@ -63,6 +63,7 @@ function create() {
         if (players[id].playerId === player.playerId) {
           player.setRotation(players[id].rotation);
           player.setPosition(players[id].x, players[id].y);
+          //player.setTint(0xcc00ff);
         }
       });
     });
@@ -143,8 +144,8 @@ function update() {
 function displayPlayers(self, playerInfo, sprite) {
   console.log(color);
   const player = self.add.sprite(playerInfo.x, playerInfo.y, sprite).setOrigin(0.5, 0.5).setDisplaySize(83, 70);
-  if (playerInfo.team === 'blue') player.setTint('0x'+ color);
-  else player.setTint('0x'+ color);
+  if (playerInfo.team === 'blue') player.setTint((0xcc00ff));
+  else player.setTint(0xcc00ff);
   player.playerId = playerInfo.playerId;
   self.players.add(player);
 }

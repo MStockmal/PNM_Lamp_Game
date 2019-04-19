@@ -63,7 +63,9 @@ function create() {
         left: false,
         right: false,
         up: false
-      }
+      },
+      score: 0,
+      tint: '0xcc00ff'
     };
     // add player to server
     addPlayer(self, players[socket.id]);
@@ -97,7 +99,7 @@ function update() {
   this.players.getChildren().forEach((player) => {
     const input = players[player.playerId].input;
     //Set Player Tint
-    player.setTint('Ox' + input.color);
+    // player.setTint('Ox' + input.color);
     if (input.left) {
       player.setAngularVelocity(-300);
     } else if (input.right) {
@@ -115,6 +117,7 @@ function update() {
     players[player.playerId].x = player.x;
     players[player.playerId].y = player.y;
     players[player.playerId].rotation = player.rotation;
+    // players[player.playerId].Tint(0xcc00ff);
   });
   this.physics.world.wrap(this.players, 5);
   io.emit('playerUpdates', players);
