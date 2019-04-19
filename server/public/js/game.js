@@ -17,6 +17,7 @@ var upP = false;
 var downP = false;
 var color = "";
 var name = "";
+var score
 
 
 function preload() {
@@ -63,15 +64,15 @@ function create() {
         if (players[id].playerId === player.playerId) {
           player.setRotation(players[id].rotation);
           player.setPosition(players[id].x, players[id].y);
-          //player.setTint(0xcc00ff);
+          player.score = players[id].score;
         }
       });
     });
   });
 
   this.socket.on('updateScore', function (scores) {
-    self.blueScoreText.setText('Teal: ' + scores.blue);
-    self.redScoreText.setText('Pink: ' + scores.red);
+    self.blueScoreText.setText('Username: ' + scores.username);
+    self.redScoreText.setText('High Score: ' + scores.highscore);
   });
 
   this.socket.on('starLocation', function (starLocation) {

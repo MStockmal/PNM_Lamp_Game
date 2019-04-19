@@ -33,13 +33,16 @@ function create() {
 
   this.scores = {
     blue: 0,
-    red: 0
+    red: 0,
+    highscore: 0,
+    username: ''
   };
 
   this.star = this.physics.add.image(randomPosition(1280), randomPosition(800), 'star').setDisplaySize(60, 60);
   this.physics.add.collider(this.players);
 
   this.physics.add.overlap(this.players, this.star, function (star, player) {
+    players[player.playerId].score += 10;
     if (players[player.playerId].team === 'red') {
       self.scores.red += 10;
     } else {
@@ -66,7 +69,7 @@ function create() {
       },
       score: 0,
       tint: Math.random() * 0xffffff,
-      username: ''
+      username: 'Winner'
 
     };
     // add player to server
@@ -119,6 +122,7 @@ function update() {
     players[player.playerId].x = player.x;
     players[player.playerId].y = player.y;
     players[player.playerId].rotation = player.rotation;
+    players[player.playerId].score = player.score;
     //players[player.playerId].tint = '0x' + input.tint;
   });
   this.physics.world.wrap(this.players, 5);
@@ -133,6 +137,11 @@ function handlePlayerInput(self, playerId, input) {
   self.players.getChildren().forEach((player) => {
     if (playerId === player.playerId) {
       players[player.playerId].input = input;
+      if (players[player.playerId].score > self.scores.highscore) {
+        self.scores.highscore = players[player.playerId].score;
+        self.scores.username = players[player.playerId].username;
+
+      }
     }
   });
 }
