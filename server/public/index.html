@@ -7,11 +7,38 @@
 <style>
 #container{
   width: 100%;
+
 }
 body{
-  min-width: 100vw;
   position: absolute;
   margin: 0;
+      max-width: 100vw;
+      background:#a17ece;
+}
+
+canvas:nth-child(1){
+  width: '100vw';
+  transform: scale(6);
+
+}
+
+#name{
+  position: fixed;
+bottom: 0;
+right: 0px;
+width: 70vw;
+height: 100px;
+box-shadow: 0px 0px 10px;
+font-size: 50px;
+}
+
+#color{
+  position: fixed;
+bottom: 0;
+height: 100px;
+width: 30vw;
+box-shadow: 0px 0px 10px;
+
 }
 </style>
 
@@ -43,7 +70,7 @@ var joystick	= new VirtualJoystick({
   container	: document.getElementById('container'),
   mouseSupport: true,
   stationaryBase: true,
-  baseX: window.innerWidth/2 +150,
+  baseX: window.innerWidth/2 + 150,
   baseY: window.innerHeight - 200,
   limitStickTravel: true,
   stickRadius: 100

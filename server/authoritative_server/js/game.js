@@ -65,7 +65,9 @@ function create() {
         up: false
       },
       score: 0,
-      tint: '0xcc00ff'
+      tint: Math.random() * 0xffffff,
+      username: ''
+
     };
     // add player to server
     addPlayer(self, players[socket.id]);
@@ -117,7 +119,7 @@ function update() {
     players[player.playerId].x = player.x;
     players[player.playerId].y = player.y;
     players[player.playerId].rotation = player.rotation;
-    // players[player.playerId].Tint(0xcc00ff);
+    //players[player.playerId].tint = '0x' + input.tint;
   });
   this.physics.world.wrap(this.players, 5);
   io.emit('playerUpdates', players);

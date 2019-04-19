@@ -143,9 +143,9 @@ function update() {
 
 function displayPlayers(self, playerInfo, sprite) {
   console.log(color);
-  const player = self.add.sprite(playerInfo.x, playerInfo.y, sprite).setOrigin(0.5, 0.5).setDisplaySize(83, 70);
-  if (playerInfo.team === 'blue') player.setTint((0xcc00ff));
-  else player.setTint(0xcc00ff);
+  const player = self.add.sprite(playerInfo.x, playerInfo.y, sprite).setOrigin(0.5, 0.5).setDisplaySize(83, 70).setTint(playerInfo.tint);
+  // if (playerInfo.team === 'blue') player.setTint((0xcc00ff));
+  // else player.setTint(0xcc00ff);
   player.playerId = playerInfo.playerId;
   self.players.add(player);
 }
