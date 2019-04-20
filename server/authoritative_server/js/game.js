@@ -63,7 +63,7 @@ function create() {
     io.emit('topScores', top_scores);
 
     self.star.setPosition(10+randomPosition(1180), 10+randomPosition(680));
-    io.emit('updateScore', players[player.playerId].score);
+    io.emit('updateScore', players);
     io.emit('starLocation', { x: self.star.x, y: self.star.y });
   });
 

@@ -70,9 +70,16 @@ function create() {
     });
   });
 
-  this.socket.on('updateScore', function (score) {
-    self.blueScoreText.setText('My score: ' + (typeof score === 'undefined' ? 0 : score));
+  this.socket.on('updateScore', function (players) {
+    if (typeof self.myPlayer !== 'undefined' && self.myPlayer.hasOwnProperty('playerId') && players.hasOwnProperty(self.myPlayer.playerId)) {
+      self.blueScoreText.setText(
+        'My score: ' + (typeof players[self.myPlayer.playerId].score === 'undefined' ? 0 : players[self.myPlayer.playerId].score)
+      );
+    } else {
+      self.blueScoreText.setText('My score: 0');
+    }
   });
+
 
   this.socket.on('topScores', function (scores) {
     var score_str = 'High Scores\n';
