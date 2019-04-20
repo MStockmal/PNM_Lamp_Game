@@ -43,11 +43,23 @@ function create() {
 
   this.physics.add.overlap(this.players, this.star, function (star, player) {
     players[player.playerId].score += 10;
-    if (players[player.playerId].team === 'red') {
+    /*if (players[player.playerId].team === 'red') {
       self.scores.red += 10;
     } else {
       self.scores.blue += 10;
+    }*/
+
+    var maxscore = -1;
+    var maxid;
+    for (var playerId in players) {
+      if (players[playerId].score > maxscore) {
+        maxscore = players[playerId].score;
+        maxid = playerId;
+      }
     }
+    self.score.highscore = maxscore;
+    self.score.username = players[maxid].name;
+
     self.star.setPosition(randomPosition(1200), randomPosition(700));
     io.emit('updateScore', self.scores);
     io.emit('starLocation', { x: self.star.x, y: self.star.y });
