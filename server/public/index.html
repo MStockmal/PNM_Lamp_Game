@@ -4,6 +4,21 @@
 <head>
   <meta charset="utf-8">
 </head>
+	<script>
+		function start(){
+			var ua = window.navigator.userAgent;
+			if(ua.indexOf("iphone") >= 0 || us.indexOf("android")){
+				return;
+			}
+			else{
+				alert("Please use a phone!");
+				window.location.reload();
+			}
+		}
+
+
+	</script>
+		
 <style>
 #container{
   width: 100%;
@@ -44,7 +59,7 @@ box-shadow: 0px 0px 10px;
 </style>
 
 
-<body>
+<body onload='start()'>
   <script src="/socket.io/socket.io.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/phaser@3.15.1/dist/phaser.min.js"></script>
   <script src="js/game.js"></script>
