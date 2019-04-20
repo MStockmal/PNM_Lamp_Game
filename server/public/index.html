@@ -7,10 +7,15 @@
 	<script>
 		function start(){
 			var ua = window.navigator.userAgent;
-			if(ua.indexOf("iphone") >= 0 || us.indexOf("android")){
+			var hash = window.location.hash;
+			if(ua.toLowerCase().indexOf("iphone") >= 0 || ua.toLowerCase().indexOf("android") >= 0){
 				return;
 			}
 			else{
+				if(hash.toLowerCase().indexOf("main") >= 0){
+					document.getElementsByTagName("body")[0].className +=  "main";
+					return;
+				}
 				alert("Please use a phone!");
 				window.location.reload();
 			}
@@ -34,7 +39,9 @@ body{
 canvas:nth-child(1){
   width: '100vw';
   transform: scale(6);
-
+    background: rgba(0, 0, 0, 0.33);
+    border-radius: 50%;
+    box-shadow: 0px 0px 20px white;
 }
 
 #name{
@@ -54,7 +61,12 @@ bottom: 0;
 height: 100px;
 width: 30vw;
 box-shadow: 0px 0px 10px;
+}
 
+body.main #container,
+body.main #name,
+body.main #color{
+	visibility: hidden;
 }
 </style>
 
