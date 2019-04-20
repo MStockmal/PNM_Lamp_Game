@@ -75,6 +75,13 @@ function create() {
     self.redScoreText.setText('High Score: ' + scores.highscore);
   });
 
+  this.socket.on('yourPlayer', function(player) {
+    self.myPlayer = player;
+    //console.log('player tint', player.tint, typeof player.tint, parseInt(player.tint, 16), parseFloat(player.tint, 16));
+    document.getElementById('color').value = "#" + parseInt(player.tint).toString(16);
+    console.log('yourPlayer', player);
+  })
+
   this.socket.on('starLocation', function (starLocation) {
     if (!self.star) {
       self.star = self.add.image(starLocation.x, starLocation.y, 'star').setDisplaySize(60, 60);
