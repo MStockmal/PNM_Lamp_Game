@@ -6,7 +6,7 @@ var greenlock = require('greenlock-express').create({
 , approveDomains: approveDomains
 , app: require('./test.js')
 });
-var server = greenlock.listen(8080, 8443);
+var server = greenlock.listen(8082, 8443);
 //const server = require('http').Server(app);
 const path = require('path');
 const io = require('socket.io').listen(server);
@@ -60,4 +60,13 @@ function setupAuthoritativePhaser() {
   });
 }
 
-setupAuthoritativePhaser();2
+setupAuthoritativePhaser();
+
+const express = require('express');
+var apphttp = express();
+apphttp.get('*',function(req,res){
+  res.redirect('https://' + req.get('host') +req.url)
+});
+
+//apphttp.listen(8082);
+
