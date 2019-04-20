@@ -42,27 +42,40 @@ function create() {
   this.physics.add.collider(this.players);
 
   this.physics.add.overlap(this.players, this.star, function (star, player) {
-    players[player.playerId].score += 10;
-    /*if (players[player.playerId].team === 'red') {
-      self.scores.red += 10;
+    console.log('Scored:', player.playerId, players[player.playerId]);
+    console.log(1);
+    if (typeof players[player.playerId].score !== 'undefined' && !isNaN(players[player.playerId].score)) {
+      console.log('Adding 10');
+      console.log('score:', players[player.playerId].score);
+      players[player.playerId].score += 10;
     } else {
-      self.scores.blue += 10;
-    }*/
-
+      console.log('Setting to 10: ');
+      console.log('score:', players[player.playerId].score);
+      players[player.playerId].score = 10;
+    }
+    console.log(2);
     var maxscore = -1;
     var maxid;
     for (var playerId in players) {
-      if (players[playerId].score > maxscore) {
+      if (typeof players[playerId].score !== 'undefined' && !isNaN(players[playerId].score) && players[playerId].score > maxscore) {
         maxscore = players[playerId].score;
         maxid = playerId;
       }
     }
-    self.score.highscore = maxscore;
-    self.score.username = players[maxid].name;
-
+    console.log(3);
+    if (maxscore > -1) {
+      self.scores.highscore = maxscore;
+      console.log('Setting scores:', players[maxid].input);
+      self.scores.username = typeof players[maxid].input.name !== 'undefined' ? players[maxid].input.name : '';
+    } else {
+      self.scores.highscore = 0;
+      self.scores.username = '';
+    }
+    console.log(4);
     self.star.setPosition(randomPosition(1200), randomPosition(700));
     io.emit('updateScore', self.scores);
     io.emit('starLocation', { x: self.star.x, y: self.star.y });
+    console.log(5);
   });
 
   io.on('connection', function (socket) {
@@ -138,7 +151,7 @@ function update() {
     players[player.playerId].x = player.x;
     players[player.playerId].y = player.y;
     players[player.playerId].rotation = player.rotation;
-    players[player.playerId].score = player.score;
+    //players[player.playerId].score = player.score;
     //players[player.playerId].tint = '0x' + input.tint;
   });
   this.physics.world.wrap(this.players, 5);
