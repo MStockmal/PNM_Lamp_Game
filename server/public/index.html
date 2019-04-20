@@ -26,10 +26,11 @@ canvas:nth-child(1){
   position: fixed;
 bottom: 0;
 right: 0px;
-width: 70vw;
+width: 100vw;
 height: 100px;
 box-shadow: 0px 0px 10px;
 font-size: 50px;
+padding-left: 1em;
 }
 
 #color{
@@ -53,10 +54,7 @@ box-shadow: 0px 0px 10px;
   </div>
   <div id="container"></div>
   <input id='color' type="color" onchange='colorChange()' value="#ff0000" disabled>
-  <input id='name' type="text" onchange='colorChange()' >
-
-
-
+  <input id='name' type="text" onchange='colorChange()' placeholder="Player name?">
 </body>
 <script>
 function colorChange(){

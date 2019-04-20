@@ -151,6 +151,7 @@ function update() {
     players[player.playerId].x = player.x;
     players[player.playerId].y = player.y;
     players[player.playerId].rotation = player.rotation;
+
     //players[player.playerId].score = player.score;
     //players[player.playerId].tint = '0x' + input.tint;
   });
