@@ -84,7 +84,7 @@ function create() {
     self.myPlayer = player;
     //console.log('player tint', player.tint, typeof player.tint, parseInt(player.tint, 16), parseFloat(player.tint, 16));
     document.getElementById('color').value = "#" + parseInt(player.tint).toString(16);
-    console.log('yourPlayer', player);
+    //console.log('yourPlayer', player);
   })
 
   this.socket.on('starLocation', function (starLocation) {
@@ -148,14 +148,14 @@ function update() {
 
 
 
- console.log(upP, rightP, downP, leftP, color, name);
+ //console.log(upP, rightP, downP, leftP, color, name);
   if (leftP || rightP  || upP || downP) {
     this.socket.emit('playerInput', { left: leftP, right: rightP, up: upP, down: downP, color: color, name: name});
   }
 }
 
 function displayPlayers(self, playerInfo, sprite) {
-  console.log(color);
+  //console.log(color);
   const player = self.add.sprite(playerInfo.x, playerInfo.y, sprite).setOrigin(0.5, 0.5).setDisplaySize(83, 70).setTint(playerInfo.tint);
   // if (playerInfo.team === 'blue') player.setTint((0xcc00ff));
   // else player.setTint(0xcc00ff);
