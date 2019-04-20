@@ -42,40 +42,29 @@ function create() {
   this.physics.add.collider(this.players);
 
   this.physics.add.overlap(this.players, this.star, function (star, player) {
-    console.log('Scored:', player.playerId, players[player.playerId]);
-    console.log(1);
     if (typeof players[player.playerId].score !== 'undefined' && !isNaN(players[player.playerId].score)) {
-      console.log('Adding 10');
-      console.log('score:', players[player.playerId].score);
       players[player.playerId].score += 10;
     } else {
-      console.log('Setting to 10: ');
-      console.log('score:', players[player.playerId].score);
       players[player.playerId].score = 10;
     }
-    console.log(2);
-    var maxscore = -1;
-    var maxid;
-    for (var playerId in players) {
-      if (typeof players[playerId].score !== 'undefined' && !isNaN(players[playerId].score) && players[playerId].score > maxscore) {
-        maxscore = players[playerId].score;
-        maxid = playerId;
-      }
+
+    // Top 3.
+    playerIds = Object.keys(players);
+    playerIds.sort(function(a, b) { return players[b].score - players[a].score });
+    var top_scores = [];
+
+    for (var i = 0; i < playerIds.length && top_scores.length < 3; i++) {
+      var pid = playerIds[i];
+
+      if (typeof players[pid].score !== 'undefined' && !isNaN(players[pid].score))
+        top_scores.push({name: players[pid].input.name, score: players[pid].score});
     }
-    console.log(3);
-    if (maxscore > -1) {
-      self.scores.highscore = maxscore;
-      console.log('Setting scores:', players[maxid].input);
-      self.scores.username = typeof players[maxid].input.name !== 'undefined' ? players[maxid].input.name : '';
-    } else {
-      self.scores.highscore = 0;
-      self.scores.username = '';
-    }
-    console.log(4);
-    self.star.setPosition(randomPosition(1200), randomPosition(700));
-    io.emit('updateScore', self.scores);
+
+    io.emit('topScores', top_scores);
+
+    self.star.setPosition(10+randomPosition(1180), 10+randomPosition(680));
+    io.emit('updateScore', players[player.playerId].score);
     io.emit('starLocation', { x: self.star.x, y: self.star.y });
-    console.log(5);
   });
 
   io.on('connection', function (socket) {
@@ -90,7 +79,8 @@ function create() {
       input: {
         left: false,
         right: false,
-        up: false
+        up: false,
+        name: 'Winner'
       },
       score: 0,
       tint: Math.random() * 0xffffff,
@@ -110,7 +100,7 @@ function create() {
     // send the star object to the new player
     socket.emit('starLocation', { x: self.star.x, y: self.star.y });
     // send the current scores
-    socket.emit('updateScore', self.scores);
+    socket.emit('updateScore', players[socket.id].score);
 
     socket.on('disconnect', function () {
       console.log('user disconnected');

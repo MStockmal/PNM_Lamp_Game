@@ -33,8 +33,8 @@ function create() {
   this.socket = io();
   this.players = this.add.group();
 
-  this.blueScoreText = this.add.text(16, 16, '', { fontSize: '32px', fill: '#05fcfc' });
-  this.redScoreText = this.add.text(584, 16, '', { fontSize: '32px', fill: '#ff26a1' });
+  this.blueScoreText = this.add.text(16, 16, '', { fontSize: '32px', fill: '#ffffff' });
+  this.redScoreText = this.add.text(900, 16, '', { fontSize: '32px', fill: '#ffffff' });
 
   this.socket.on('currentPlayers', function (players) {
     Object.keys(players).forEach(function (id) {
@@ -70,9 +70,14 @@ function create() {
     });
   });
 
-  this.socket.on('updateScore', function (scores) {
-    self.blueScoreText.setText('Username: ' + scores.username);
-    self.redScoreText.setText('High Score: ' + scores.highscore);
+  this.socket.on('updateScore', function (score) {
+    self.blueScoreText.setText('My score: ' + (typeof score === 'undefined' ? 0 : score));
+  });
+
+  this.socket.on('topScores', function (scores) {
+    var score_str = 'High Scores\n';
+    score_str += scores.map(s => s.name + ': ' + s.score).join("\n");
+    self.redScoreText.setText(score_str);
   });
 
   this.socket.on('yourPlayer', function(player) {
