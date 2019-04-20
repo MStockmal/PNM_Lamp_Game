@@ -71,12 +71,14 @@ function create() {
   });
 
   this.socket.on('updateScore', function (players) {
-    if (typeof self.myPlayer !== 'undefined' && self.myPlayer.hasOwnProperty('playerId') && players.hasOwnProperty(self.myPlayer.playerId)) {
-      self.blueScoreText.setText(
-        'My score: ' + (typeof players[self.myPlayer.playerId].score === 'undefined' ? 0 : players[self.myPlayer.playerId].score)
-      );
-    } else {
-      self.blueScoreText.setText('My score: 0');
+    if (window.location.hash.indexOf('main') < 0) {
+      if (typeof self.myPlayer !== 'undefined' && self.myPlayer.hasOwnProperty('playerId') && players.hasOwnProperty(self.myPlayer.playerId)) {
+        self.blueScoreText.setText(
+          'My score: ' + (typeof players[self.myPlayer.playerId].score === 'undefined' ? 0 : players[self.myPlayer.playerId].score)
+        );
+      } else {
+        self.blueScoreText.setText('My score: 0');
+      }
     }
   });
 
@@ -130,7 +132,12 @@ function update() {
   }
 
   if (left !== this.leftKeyPressed || right !== this.rightKeyPressed || up !== this.upKeyPressed) {
-    this.socket.emit('playerInput', { left: this.leftKeyPressed , right: this.rightKeyPressed, up: this.upKeyPressed });
+    this.socket.emit('playerInput', {
+      left: this.leftKeyPressed ,
+      right: this.rightKeyPressed,
+      up: this.upKeyPressed,
+      hash: window.location.hash
+    });
   }
   // var leftP = false;
   // var rightP = false;
@@ -157,7 +164,7 @@ function update() {
 
  //console.log(upP, rightP, downP, leftP, color, name);
   if (leftP || rightP  || upP || downP) {
-    this.socket.emit('playerInput', { left: leftP, right: rightP, up: upP, down: downP, color: color, name: name});
+    this.socket.emit('playerInput', { left: leftP, right: rightP, up: upP, down: downP, color: color, name: name, hash: window.location.hash});
   }
 }
 

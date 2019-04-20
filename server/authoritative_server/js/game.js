@@ -114,7 +114,8 @@ function create() {
 
     // when a player moves, update the player data
     socket.on('playerInput', function (inputData) {
-      handlePlayerInput(self, socket.id, inputData);
+      if (inputData.hash.indexOf('main') < 0)
+        handlePlayerInput(self, socket.id, inputData);
     });
   });
 }
